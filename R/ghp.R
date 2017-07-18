@@ -3,7 +3,7 @@
 #' @importFrom gtools combinations
 #' @export
 
-acc <- function(indep) {
+acc <- function(k) {
   combs <- function(k) {
     ## Combinations
     combs <- as.list(1:k)

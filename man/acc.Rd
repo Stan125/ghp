@@ -4,7 +4,7 @@
 \alias{acc}
 \title{Function to get all possible combinations for a set of covariates}
 \usage{
-acc(indep)
+acc(k)
 }
 \description{
 Function to get all possible combinations for a set of covariates
