@@ -4,7 +4,6 @@
 #' @export
 
 acc <- function(k) {
-  combs <- function(k) {
     ## Combinations
     combs <- as.list(1:k)
     combs <- lapply(combs, FUN = function(x)
@@ -23,7 +22,6 @@ acc <- function(k) {
     binary[indices] <- 1
 
     return(binary)
-  }
 }
 
 #' Internal function: Calculate number of combinations
