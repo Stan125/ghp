@@ -21,7 +21,7 @@ acc <- function(k) {
     binary <- matrix(0, nrow = nrow(combs), ncol = ncol(combs))
     binary[indices] <- 1
 
-    return(binary)
+    return(list(combs = combs, binary = binary))
 }
 
 #' Internal function: Calculate number of combinations
