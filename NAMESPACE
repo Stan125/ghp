@@ -3,7 +3,6 @@
 export(acc)
 export(ghp)
 export(gof)
-import(dplyr)
-importFrom(Matrix,bdiag)
+import(Matrix)
 importFrom(combinat,permn)
 importFrom(gtools,combinations)

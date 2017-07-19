@@ -8,6 +8,8 @@ Description: This package is a generalisation of hierarchical partitioning,
     described by Chevan and Sutherland (1991). It can be applied to a variety of
     models with numerous goodness of fit figures to find out which variables
     have the most impact on the dependent variable.
+Depends:
+        R (>= 3.3.0)
 Imports:
         dplyr (>= 0.7.0),
         combinat (>= 0.0-8),

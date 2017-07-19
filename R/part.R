@@ -1,7 +1,7 @@
 #' Partitioning
 #'
 #' @importFrom combinat permn
-#' @importFrom Matrix, bdiag
+#' @import Matrix
 
 ## Do partitioning
 part <- function(gofs, indep) {
