@@ -39,3 +39,20 @@ acc <- function(k) {
 #'
 n_combs <- function(n, r)
   return(factorial(n) / (factorial(n - r) * factorial(r)))
+
+
+#' Plot ghp results
+#'
+#' @import ggplot2
+#' @export
+
+plot_ghp <- function(result) {
+  perc <- result$perc
+  plot <- ggplot(as.data.frame(perc), aes(x = row.names(perc), y = I)) +
+    geom_bar(stat = "identity") +
+    labs(x = "Variables", y = "%") +
+    ggtitle(paste("Percentages of independent effects on", attr(result, "gof"))) +
+    coord_flip() +
+    theme_bw()
+  return(plot)
+}

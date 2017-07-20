@@ -8,8 +8,9 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "figures/"
 )
+library(ghp)
 ```
 
 # ghp
@@ -34,10 +35,17 @@ Just call the ghp function with dependent and independent variables to obtain it
 india <- ghp::india
 dep <- india$stunting
 indep <- subset(india, select = -c(stunting))
-ghp::ghp(dep, indep, method = "lm", gof = "r.squared")
+results <- ghp(dep, indep, method = "lm", gof = "r.squared")
+results
 ```
 
 The first dataframe captures the actual mean influence of the variable on the goodness-of-fit. Also, joint effects are calculated. The second dataframe shows the percentage influence. We can see that `cage` has the highest influence with (~43%).
+
+## Bar Plots
+To get a bar plot of the percentage independent effects, use `plot_ghp()`:
+```{r barplot}
+plot_ghp(results)
+```
 
 ## Comparison with hier.part
 Unfortunately, `ghp` is slower than the original `hier.part` package, mostly because it does not rely on C code. A quick time comparison for the same problem:

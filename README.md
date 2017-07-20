@@ -26,7 +26,8 @@ Just call the ghp function with dependent and independent variables to obtain it
 india <- ghp::india
 dep <- india$stunting
 indep <- subset(india, select = -c(stunting))
-ghp::ghp(dep, indep, method = "lm", gof = "r.squared")
+results <- ghp(dep, indep, method = "lm", gof = "r.squared")
+results
 #> $actual
 #>                          I             J        Total
 #> cage          0.0195242429  7.010337e-03 2.653458e-02
@@ -46,9 +47,23 @@ ghp::ghp(dep, indep, method = "lm", gof = "r.squared")
 #> mage           0.2859137 -0.51794179
 #> mbmi           0.2231796 -0.07671607
 #> mreligion     28.2205740  0.65042586
+#> 
+#> attr(,"gof")
+#> [1] "r.squared"
 ```
 
 The first dataframe captures the actual mean influence of the variable on the goodness-of-fit. Also, joint effects are calculated. The second dataframe shows the percentage influence. We can see that `cage` has the highest influence with (~43%).
+
+Bar Plots
+---------
+
+To get a bar plot of the percentage independent effects, use `plot_ghp()`:
+
+``` r
+plot_ghp(results)
+```
+
+![](figures/barplot-1.png)
 
 Comparison with hier.part
 -------------------------
@@ -59,8 +74,8 @@ Unfortunately, `ghp` is slower than the original `hier.part` package, mostly bec
 system.time(hier.part::hier.part(dep, indep, gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
-#>   0.327   0.003   0.330
+#>   0.347   0.004   0.352
 system.time(ghp::ghp(dep, indep, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
-#>   3.966   0.024   4.005
+#>   4.026   0.036   4.076
 ```
