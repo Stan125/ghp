@@ -13,7 +13,8 @@ Depends:
 Imports:
         dplyr (>= 0.7.0),
         combinat (>= 0.0-8),
-        Matrix (>= 1.2-10)
+        Matrix (>= 1.2-10),
+        ggplot2 (>= 2.2.0)
 License: GPL-2
 URL: https://github.com/Stan125/ghp
 BugReports: https://github.com/Stan125/ghp/issues

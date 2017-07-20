@@ -1,3 +1,14 @@
+#' Function to do hierarchical partitioning
+#'
+#' @export
+
+ghp <- function(dep, indep, gof = "r.squared", method = "lm") {
+  gofs <- gof(dep, indep, method, gof)
+  results <- part(gofs, indep)
+  attr(results, "gof") <- gof
+  return(results)
+}
+
 #' Function to get all possible combinations for a set of covariates
 #'
 #' @importFrom gtools combinations
@@ -28,12 +39,3 @@ acc <- function(k) {
 #'
 n_combs <- function(n, r)
   return(factorial(n) / (factorial(n - r) * factorial(r)))
-
-#' Function to do hierarchical partitioning
-#'
-#' @export
-
-ghp <- function(dep, indep, gof = "r.squared", method = "lm") {
-  gofs <- gof(dep, indep, method, gof)
-  return(part(gofs, indep))
-}
