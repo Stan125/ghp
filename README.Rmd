@@ -1,23 +1,47 @@
 ---
-title: "R Notebook"
 output: github_document
 ---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-"
+  fig.path = "README-"
 )
 ```
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+# ghp
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+GHP stands for General Hierarchical Partitioning. `ghp` is an implementation of the technique of hierarchical partitioning first mentioned by Chevan and Sutherland (1991). This method fits all possible models for a set of covariates and then extracts a goodness of fit (e.g. $R^2$ for linear models) to obtain independent and joint contributions of the independent variables on the selected figure.
 
-```{r}
-Sys.time()
+This package is an extension of the `hier.part` R package, developed by C. Walsh and R. Mac Nally in 2003. While `hier.part` is fast and simple at what it does, it is limited in the range of possible models as well as goodness of fit figures. Specifically, the motivation of this package is the ability to do deviance partitioning.
+
+## Installation
+
+You can install ghp from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("Stan125/ghp")
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+## Example: Partitioning of rsquared in linear regression
+Just call the ghp function with dependent and independent variables to obtain it's independent and joint effects:
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
+```{r}
+india <- ghp::india
+dep <- india$stunting
+indep <- subset(india, select = -c(stunting))
+ghp::ghp(dep, indep, method = "lm", gof = "r.squared")
+```
+
+The first dataframe captures the actual mean influence of the variable on the goodness-of-fit. Also, joint effects are calculated. The second dataframe shows the percentage influence. We can see that `cage` has the highest influence with (~43%).
+
+## Comparison with hier.part
+Unfortunately, `ghp` is slower than the original `hier.part` package, mostly because it does not rely on C code. A quick time comparison for the same problem:
+```{r}
+system.time(hier.part::hier.part(dep, indep, gof = "Rsqu", barplot = FALSE))
+system.time(ghp::ghp(dep, indep, method = "lm", gof = "r.squared"))
+```
