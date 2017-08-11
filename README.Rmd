@@ -32,19 +32,30 @@ devtools::install_github("Stan125/ghp")
 Just call the ghp function with dependent and independent variables to obtain it's independent and joint effects:
 
 ```{r}
-india <- ghp::india
+india <- na.omit(ghp::india)
 dep <- india$stunting
 indep <- subset(india, select = -c(stunting))
-results <- ghp(dep, indep, method = "lm", gof = "r.squared")
-results
+results_lm <- ghp(dep, indep, method = "lm", gof = "r.squared")
+results_lm
 ```
 
 The first dataframe captures the actual mean influence of the variable on the goodness-of-fit. Also, joint effects are calculated. The second dataframe shows the percentage influence. We can see that `cage` has the highest influence with (~43%).
 
+## Example: Partitioning of deviance in gamlss models
+
+It is now possible to do deviance partitiong of gamlss models. Gamlss models can model multiple parameters of a distribution. `ghp` can handle up to two modeled parameters, so you can find out what influence covariates have on the second modeled parameter (e.g. the variance).
+
+```{r}
+results_gamlss <- ghp(dep, indep, method = "gamlss", 
+                      gof = "deviance", npar = 2)
+results_gamlss
+```
+
+
 ## Bar Plots
 To get a bar plot of the percentage independent effects, use `plot_ghp()`:
 ```{r barplot}
-plot_ghp(results)
+plot_ghp(results_lm)
 ```
 
 ## Comparison with hier.part

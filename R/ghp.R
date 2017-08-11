@@ -1,11 +1,20 @@
 #' Function to do hierarchical partitioning
 #'
 #' @export
+#'
 
-ghp <- function(dep, indep, gof = "r.squared", method = "lm") {
-  gofs <- gof(dep, indep, method, gof)
-  results <- part(gofs, indep)
-  attr(results, "gof") <- gof
+ghp <- function(dep, indep, gof = "r.squared", method = "lm", npar = 1) {
+  gofs <- gof(dep, indep, method, gof, npar)
+  if (npar == 1) {
+    results <- part(gofs, indep)
+  } else if (npar == 2 & method == "gamlss") {
+    results <- list(mu = part(gofs$mu, indep),
+                    sigma = part(gofs$sigma, indep))
+  } else if (npar > 2) {
+    stop("More than two modeled parameters currently not supported")
+  } else if (npar == 2 & method != "gamlss") {
+    stop("par = 2 can only be specified in combination with gamlss")
+  }
   return(results)
 }
 

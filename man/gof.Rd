@@ -4,7 +4,7 @@
 \alias{gof}
 \title{Wrapper function for gof}
 \usage{
-gof(dep, indep, method = "lm", gof)
+gof(dep, indep, method = "lm", gof, npar = 1)
 }
 \description{
 Wrapper function for gof

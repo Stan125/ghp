@@ -23,36 +23,93 @@ Example: Partitioning of rsquared in linear regression
 Just call the ghp function with dependent and independent variables to obtain it's independent and joint effects:
 
 ``` r
-india <- ghp::india
+india <- na.omit(ghp::india)
 dep <- india$stunting
 indep <- subset(india, select = -c(stunting))
-results <- ghp(dep, indep, method = "lm", gof = "r.squared")
-results
+results_lm <- ghp(dep, indep, method = "lm", gof = "r.squared")
+results_lm
 #> $actual
 #>                          I             J        Total
-#> cage          0.0195242429  7.010337e-03 2.653458e-02
-#> csex          0.0038311510  4.663011e-04 4.297452e-03
-#> breastfeeding 0.0086394177  4.698817e-03 1.333823e-02
-#> ctwin         0.0001131213  1.567455e-04 2.698668e-04
-#> mage          0.0001288067 -6.390926e-05 6.489747e-05
-#> mbmi          0.0001005444 -9.466058e-06 9.107838e-05
-#> mreligion     0.0127136252  8.025658e-05 1.279388e-02
+#> cage          1.836518e-02  5.866361e-03 2.423154e-02
+#> csex          3.244890e-03 -3.470725e-05 3.210182e-03
+#> breastfeeding 8.920133e-03  4.418101e-03 1.333823e-02
+#> ctwin         1.067918e-04  1.565171e-04 2.633089e-04
+#> mage          1.137771e-04 -8.484668e-05 2.893047e-05
+#> mbmi          9.587312e-05 -8.941648e-05 6.456648e-06
+#> mreligion     1.420427e-02  1.437252e-03 1.564152e-02
 #> 
 #> $perc
-#>                        I           J
-#> cage          43.3381771 56.81409229
-#> csex           8.5040482  3.77905868
-#> breastfeeding 19.1770106 38.08076367
-#> ctwin          0.2510967  1.27031735
-#> mage           0.2859137 -0.51794179
-#> mbmi           0.2231796 -0.07671607
-#> mreligion     28.2205740  0.65042586
-#> 
-#> attr(,"gof")
-#> [1] "r.squared"
+#>                        I          J
+#> cage          40.7653840 50.2719150
+#> csex           7.2027171 -0.2974246
+#> breastfeeding 19.8001178 37.8610212
+#> ctwin          0.2370470  1.3412769
+#> mage           0.2525524 -0.7270956
+#> mbmi           0.2128106 -0.7662566
+#> mreligion     31.5293711 12.3165636
 ```
 
 The first dataframe captures the actual mean influence of the variable on the goodness-of-fit. Also, joint effects are calculated. The second dataframe shows the percentage influence. We can see that `cage` has the highest influence with (~43%).
+
+Example: Partitioning of deviance in gamlss models
+--------------------------------------------------
+
+It is now possible to do deviance partitiong of gamlss models. Gamlss models can model multiple parameters of a distribution. `ghp` can handle up to two modeled parameters, so you can find out what influence covariates have on the second modeled parameter (e.g. the variance).
+
+``` r
+results_gamlss <- ghp(dep, indep, method = "gamlss", 
+                      gof = "deviance", npar = 2)
+#> Warning in is.na(data): is.na() applied to non-(list or vector) of type
+#> 'NULL'
+#> Warning in RS(): Algorithm RS has not yet converged
+
+#> Warning in RS(): Algorithm RS has not yet converged
+
+#> Warning in RS(): Algorithm RS has not yet converged
+results_gamlss
+#> $mu
+#> $mu$actual
+#>                         I        J    Total
+#> cage          -7.61381060 7362.526 7354.912
+#> csex          -1.34759816 7364.892 7363.545
+#> breastfeeding -3.68367916 7363.092 7359.409
+#> ctwin         -0.04358676 7364.784 7364.740
+#> mage          -0.04754386 7364.883 7364.835
+#> mbmi          -0.03978509 7364.884 7364.844
+#> mreligion     -5.89338185 7364.355 7358.462
+#> 
+#> $mu$perc
+#>                        I        J
+#> cage          40.7823311 14.28246
+#> csex           7.2182245 14.28705
+#> breastfeeding 19.7311217 14.28356
+#> ctwin          0.2334665 14.28684
+#> mage           0.2546621 14.28703
+#> mbmi           0.2131034 14.28704
+#> mreligion     31.5670907 14.28601
+#> 
+#> 
+#> $sigma
+#> $sigma$actual
+#>                        I        J    Total
+#> cage          -66.432641 7366.900 7300.467
+#> csex          -28.105884 7379.226 7351.120
+#> breastfeeding -50.695336 7376.408 7325.713
+#> ctwin          -5.458284 7366.134 7360.676
+#> mage          -43.138047 7407.513 7364.375
+#> mbmi           -4.116063 7367.027 7362.910
+#> mreligion     -62.623189 7387.658 7325.034
+#> 
+#> $sigma$perc
+#>                       I        J
+#> cage          25.495177 14.26288
+#> csex          10.786332 14.28674
+#> breastfeeding 19.455595 14.28129
+#> ctwin          2.094752 14.26140
+#> mage          16.555298 14.34151
+#> mbmi           1.579641 14.26312
+#> mreligion     24.033205 14.30307
+```
 
 Bar Plots
 ---------
@@ -60,7 +117,7 @@ Bar Plots
 To get a bar plot of the percentage independent effects, use `plot_ghp()`:
 
 ``` r
-plot_ghp(results)
+plot_ghp(results_lm)
 ```
 
 ![](figures/barplot-1.png)
@@ -74,8 +131,8 @@ Unfortunately, `ghp` is slower than the original `hier.part` package, mostly bec
 system.time(hier.part::hier.part(dep, indep, gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
-#>   0.347   0.004   0.352
+#>   0.332   0.004   0.347
 system.time(ghp::ghp(dep, indep, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
-#>   4.026   0.036   4.076
+#>   4.134   0.047   4.227
 ```

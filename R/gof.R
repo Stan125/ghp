@@ -2,13 +2,13 @@
 #'
 #' @export
 
-gof <- function(dep, indep, method = "lm", gof) {
+gof <- function(dep, indep, method = "lm", gof, npar = 1) {
   if (method == "lm") {
     gof_lm(dep, indep, gof)
   } else if (method == "glm") {
     gof_glm(dep, indep, gof)
   } else if (method == "gamlss") {
-    gof_gamlss(dep, indep, gof)
+    gof_gamlss(dep, indep, gof, npar)
   } else {
     stop("Method not implemented")
   }
@@ -25,6 +25,8 @@ gof_lm <- function(dep, indep, gof = "r.squared") {
     stop("Goodness of Fit not implemented")
 
   ## -- Model fitting -- ##
+
+  # Combinations
   combinations <- acc(ncol(indep))$combs
 
   # Empty model
@@ -53,7 +55,61 @@ gof_lm <- function(dep, indep, gof = "r.squared") {
   return(gofs)
 }
 
+#' GOF for gamlss
+#'
+#' @importFrom gamlss gamlss
 
+gof_gamlss <- function(dep, indep, gof = "deviance", npar = 1) {
+  # Stop if goodness of fit not implemented
+  available_gofs <- c("AIC", "deviance")
+  if (!gof %in% available_gofs)
+    stop("Goodness of Fit not implemented")
 
+  ## -- Model fitting -- ##
 
+  # Combinations
+  combinations <- acc(ncol(indep))$combs
+
+  # Empty model
+  m0 <- gamlss(dep ~ 1, data = NULL, trace = FALSE)
+
+  # Models for mu
+  models_mu <- apply(combinations, MARGIN = 1, FUN = function(x)
+    return(gamlss(dep ~ ., data = as.data.frame(indep[, x[x > 0]]),
+                  trace = FALSE)))
+
+  # Do the same for other parameters if npar > 1
+  if (npar == 2)
+    models_sigma <- apply(combinations, MARGIN = 1, FUN = function(x)
+      return(gamlss(dep ~ 1, sigma.formula = ~ ., trace = FALSE,
+                    data = as.data.frame(indep[, x[x > 0]]))))
+
+  if (gof == "AIC") {
+    gofs <- sapply(models_mu, FUN = AIC)
+    gofs <- c(AIC(m0), gofs)
+    # Do the same for sigma parameters
+    if (npar == 2) {
+      gofs_sigma <- sapply(models_sigma, FUN = AIC)
+      gofs_sigma <- c(AIC(m0), gofs_sigma)
+    }
+  } else if (gof == "deviance") {
+    gofs <- sapply(models_mu, FUN = deviance)
+    gofs <- c(deviance(m0), gofs)
+    if (npar == 2) {
+      gofs_sigma <- sapply(models_sigma, FUN = deviance)
+      gofs_sigma <- c(deviance(m0), gofs_sigma)
+    }
+  }
+
+  # What to return?
+  if (npar == 1) {
+    attr(gofs, "gof") <- gof
+    return(gofs)
+  }
+  if (npar == 2) {
+    attr(gofs, "gof") <- gof
+    attr(gofs_sigma, "gof") <- gof
+    return(list(mu = gofs, sigma = gofs_sigma))
+  }
+}
 
