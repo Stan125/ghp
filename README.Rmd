@@ -32,7 +32,7 @@ devtools::install_github("Stan125/ghp")
 Just call the ghp function with dependent and independent variables to obtain it's independent and joint effects:
 
 ```{r}
-india <- na.omit(ghp::india)
+india <- ghp::india
 dep <- india$stunting
 indep <- subset(india, select = -c(stunting))
 results_lm <- ghp(dep, indep, method = "lm", gof = "r.squared")

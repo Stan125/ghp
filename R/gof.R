@@ -67,6 +67,12 @@ gof_gamlss <- function(dep, indep, gof = "deviance", npar = 1) {
 
   ## -- Model fitting -- ##
 
+  # Omit NA values
+  data <- cbind(dep = dep, indep)
+  data <- na.omit(data)
+  dep <- data$dep
+  indep <- subset(data, select = -c(dep))
+
   # Combinations
   combinations <- acc(ncol(indep))$combs
 
