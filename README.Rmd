@@ -56,6 +56,7 @@ results_gamlss
 To get a bar plot of the percentage independent effects, use `plot_ghp()`:
 ```{r barplot}
 plot_ghp(results_lm)
+plot_ghp(results_gamlss)
 ```
 
 ## Comparison with hier.part

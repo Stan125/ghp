@@ -47,8 +47,8 @@ part <- function(gofs, indep) {
   row.names(df_compl) <- colnames(indep)
 
   # Percentages
-  df_perc <- apply(df_compl[, -3], MARGIN = 2,
-                   FUN = function(x) return(x / sum(x) * 100))
+  df_perc <- as.data.frame(apply(df_compl[, -3], MARGIN = 2,
+                                 FUN = function(x) return(x / sum(x) * 100)))
 
   return(list(actual = df_compl, perc = df_perc))
 }

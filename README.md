@@ -47,6 +47,11 @@ results_lm
 #> mage           0.2859137 -0.51794179
 #> mbmi           0.2231796 -0.07671607
 #> mreligion     28.2205740  0.65042586
+#> 
+#> attr(,"npar")
+#> [1] 1
+#> attr(,"gof")
+#> [1] "r.squared"
 ```
 
 The first dataframe captures the actual mean influence of the variable on the goodness-of-fit. Also, joint effects are calculated. The second dataframe shows the percentage influence. We can see that `cage` has the highest influence with (~43%).
@@ -109,6 +114,12 @@ results_gamlss
 #> mage          16.555298 14.34151
 #> mbmi           1.579641 14.26312
 #> mreligion     24.033205 14.30307
+#> 
+#> 
+#> attr(,"npar")
+#> [1] 2
+#> attr(,"gof")
+#> [1] "deviance"
 ```
 
 Bar Plots
@@ -122,6 +133,12 @@ plot_ghp(results_lm)
 
 ![](figures/barplot-1.png)
 
+``` r
+plot_ghp(results_gamlss)
+```
+
+![](figures/barplot-2.png)
+
 Comparison with hier.part
 -------------------------
 
@@ -131,8 +148,8 @@ Unfortunately, `ghp` is slower than the original `hier.part` package, mostly bec
 system.time(hier.part::hier.part(dep, indep, gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
-#>   0.337   0.007   0.346
+#>   0.341   0.004   0.347
 system.time(ghp::ghp(dep, indep, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
-#>   3.879   0.030   3.924
+#>   3.968   0.027   4.019
 ```
