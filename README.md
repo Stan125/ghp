@@ -148,8 +148,15 @@ Unfortunately, `ghp` is slower than the original `hier.part` package, mostly bec
 system.time(hier.part::hier.part(dep, indep, gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
-#>   0.341   0.004   0.347
+#>   0.334   0.004   0.342
 system.time(ghp::ghp(dep, indep, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
-#>   3.968   0.027   4.019
+#>   3.967   0.033   4.016
+```
+
+This README.Rmd was run on:
+
+``` r
+date()
+#> [1] "Mon Aug 21 13:07:54 2017"
 ```

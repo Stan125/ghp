@@ -65,3 +65,8 @@ Unfortunately, `ghp` is slower than the original `hier.part` package, mostly bec
 system.time(hier.part::hier.part(dep, indep, gof = "Rsqu", barplot = FALSE))
 system.time(ghp::ghp(dep, indep, method = "lm", gof = "r.squared"))
 ```
+
+This README.Rmd was run on:
+```{r}
+date()
+```
