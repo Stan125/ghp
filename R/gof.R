@@ -2,13 +2,13 @@
 #'
 #' @export
 
-gof <- function(dep, indep, method = "lm", gof, npar = 1) {
+gof <- function(depname, data, method = "lm", gof, npar = 1) {
   if (method == "lm") {
-    gof_lm(dep, indep, gof)
+    gof_lm(depname, data, gof)
   } else if (method == "glm") {
-    gof_glm(dep, indep, gof)
+    gof_glm(depname, data, gof)
   } else if (method == "gamlss") {
-    gof_gamlss(dep, indep, gof, npar)
+    gof_gamlss(depname, data, gof, npar)
   } else {
     stop("Method not implemented")
   }
@@ -18,11 +18,15 @@ gof <- function(dep, indep, method = "lm", gof, npar = 1) {
 #'
 #'
 
-gof_lm <- function(dep, indep, gof = "r.squared") {
+gof_lm <- function(depname, data, gof = "r.squared") {
   # Stop if goodness of fit not implemented
   available_gofs <- c("AIC", "r.squared", "loglik", "deviance")
   if (!gof %in% available_gofs)
     stop("Goodness of Fit not implemented")
+
+  ## Selecting dep and indep of data
+  dep <- data[, depname]
+  indep <- data[, !grepl(depname, colnames(data))]
 
   ## -- Model fitting -- ##
 
@@ -59,7 +63,7 @@ gof_lm <- function(dep, indep, gof = "r.squared") {
 #'
 #' @importFrom gamlss gamlss
 
-gof_gamlss <- function(dep, indep, gof = "deviance", npar = 1) {
+gof_gamlss <- function(depname, data, gof = "deviance", npar = 1) {
   # Stop if goodness of fit not implemented
   available_gofs <- c("AIC", "deviance")
   if (!gof %in% available_gofs)
@@ -67,11 +71,10 @@ gof_gamlss <- function(dep, indep, gof = "deviance", npar = 1) {
 
   ## -- Model fitting -- ##
 
-  # Omit NA values
-  data <- cbind(dep = dep, indep)
+  ## Selecting dep and indep of data
   data <- na.omit(data)
-  dep <- data$dep
-  indep <- subset(data, select = -c(dep))
+  dep <- data[, depname]
+  indep <- data[, !grepl(depname, colnames(data))]
 
   # Combinations
   combinations <- acc(ncol(indep))$combs

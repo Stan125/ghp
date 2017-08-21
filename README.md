@@ -20,13 +20,11 @@ devtools::install_github("Stan125/ghp")
 Example: Partitioning of rsquared in linear regression
 ------------------------------------------------------
 
-Just call the ghp function with dependent and independent variables to obtain it's independent and joint effects:
+Just call the ghp function with the name of the dependent variable (arg: `dep`) and a data.frame with all relevant variables to obtain the independent and joint effects of the explanatory covariates.
 
 ``` r
 india <- ghp::india
-dep <- india$stunting
-indep <- subset(india, select = -c(stunting))
-results_lm <- ghp(dep, indep, method = "lm", gof = "r.squared")
+results_lm <- ghp(depname = "stunting", india, method = "lm", gof = "r.squared")
 results_lm
 #> $actual
 #>                          I             J        Total
@@ -62,7 +60,7 @@ Example: Partitioning of deviance in gamlss models
 It is now possible to do deviance partitiong of gamlss models. Gamlss models can model multiple parameters of a distribution. `ghp` can handle up to two modeled parameters, so you can find out what influence covariates have on the second modeled parameter (e.g. the variance).
 
 ``` r
-results_gamlss <- ghp(dep, indep, method = "gamlss", 
+results_gamlss <- ghp("stunting", india, method = "gamlss", 
                       gof = "deviance", npar = 2)
 #> Warning in is.na(data): is.na() applied to non-(list or vector) of type
 #> 'NULL'
@@ -145,18 +143,18 @@ Comparison with hier.part
 Unfortunately, `ghp` is slower than the original `hier.part` package, mostly because it does not rely on C code. A quick time comparison for the same problem:
 
 ``` r
-system.time(hier.part::hier.part(dep, indep, gof = "Rsqu", barplot = FALSE))
+system.time(hier.part::hier.part(india$stunting, dplyr::select(india, -stunting), gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
-#>   0.334   0.004   0.342
-system.time(ghp::ghp(dep, indep, method = "lm", gof = "r.squared"))
+#>   0.449   0.014   0.520
+system.time(ghp::ghp("stunting", india, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
-#>   3.967   0.033   4.016
+#>    4.08    0.04    4.17
 ```
 
 This README.Rmd was run on:
 
 ``` r
 date()
-#> [1] "Mon Aug 21 13:07:54 2017"
+#> [1] "Mon Aug 21 14:20:07 2017"
 ```

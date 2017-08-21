@@ -4,7 +4,7 @@
 \alias{gof_gamlss}
 \title{GOF for gamlss}
 \usage{
-gof_gamlss(dep, indep, gof = "deviance", npar = 1)
+gof_gamlss(depname, data, gof = "deviance", npar = 1)
 }
 \description{
 GOF for gamlss

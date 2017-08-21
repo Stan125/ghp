@@ -3,13 +3,13 @@
 #' @export
 #'
 
-ghp <- function(dep, indep, gof = "r.squared", method = "lm", npar = 1) {
-  gofs <- gof(dep, indep, method, gof, npar)
+ghp <- function(depname, data, gof = "r.squared", method = "lm", npar = 1) {
+  gofs <- gof(depname, data, method, gof, npar)
   if (npar == 1) {
-    results <- part(gofs, indep)
+    results <- part(gofs, depname, data)
   } else if (npar == 2 & method == "gamlss") {
-    results <- list(mu = part(gofs$mu, indep),
-                    sigma = part(gofs$sigma, indep))
+    results <- list(mu = part(gofs$mu, depname, data),
+                    sigma = part(gofs$sigma, depname, data))
   } else if (npar > 2) {
     stop("More than two modeled parameters currently not supported")
   } else if (npar == 2 & method != "gamlss") {

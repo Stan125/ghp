@@ -4,7 +4,7 @@
 \alias{part}
 \title{Partitioning}
 \usage{
-part(gofs, indep)
+part(gofs, depname, data)
 }
 \description{
 Partitioning

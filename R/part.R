@@ -4,7 +4,11 @@
 #' @import Matrix
 
 ## Do partitioning
-part <- function(gofs, indep) {
+part <- function(gofs, depname, data) {
+
+  # Select indep by dropping dep
+  indep <- data[, !grepl(depname, colnames(data))]
+
   # Get number of vars
   nvar <- ncol(indep)
 

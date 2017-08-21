@@ -4,7 +4,7 @@
 \alias{gof_lm}
 \title{GOF for lm's}
 \usage{
-gof_lm(dep, indep, gof = "r.squared")
+gof_lm(depname, data, gof = "r.squared")
 }
 \description{
 GOF for lm's
