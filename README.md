@@ -28,23 +28,23 @@ results_lm <- ghp(depname = "stunting", india, method = "lm", gof = "r.squared")
 results_lm
 #> $actual
 #>                          I             J        Total
-#> cage          0.0195242429  7.010337e-03 2.653458e-02
-#> csex          0.0038311510  4.663011e-04 4.297452e-03
-#> breastfeeding 0.0086394177  4.698817e-03 1.333823e-02
-#> ctwin         0.0001131213  1.567455e-04 2.698668e-04
-#> mage          0.0001288067 -6.390926e-05 6.489747e-05
-#> mbmi          0.0001005444 -9.466058e-06 9.107838e-05
-#> mreligion     0.0127136252  8.025658e-05 1.279388e-02
+#> cage          1.836518e-02  5.866361e-03 2.423154e-02
+#> csex          3.244890e-03 -3.470725e-05 3.210182e-03
+#> breastfeeding 8.920133e-03  4.418101e-03 1.333823e-02
+#> ctwin         1.067918e-04  1.565171e-04 2.633089e-04
+#> mage          1.137771e-04 -8.484668e-05 2.893047e-05
+#> mbmi          9.587312e-05 -8.941648e-05 6.456648e-06
+#> mreligion     1.420427e-02  1.437252e-03 1.564152e-02
 #> 
 #> $perc
-#>                        I           J
-#> cage          43.3381771 56.81409229
-#> csex           8.5040482  3.77905868
-#> breastfeeding 19.1770106 38.08076367
-#> ctwin          0.2510967  1.27031735
-#> mage           0.2859137 -0.51794179
-#> mbmi           0.2231796 -0.07671607
-#> mreligion     28.2205740  0.65042586
+#>                        I          J
+#> cage          40.7653840 50.2719150
+#> csex           7.2027171 -0.2974246
+#> breastfeeding 19.8001178 37.8610212
+#> ctwin          0.2370470  1.3412769
+#> mage           0.2525524 -0.7270956
+#> mbmi           0.2128106 -0.7662566
+#> mreligion     31.5293711 12.3165636
 #> 
 #> attr(,"npar")
 #> [1] 1
@@ -146,15 +146,15 @@ Unfortunately, `ghp` is slower than the original `hier.part` package, mostly bec
 system.time(hier.part::hier.part(india$stunting, dplyr::select(india, -stunting), gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
-#>   0.433   0.011   0.458
+#>   0.442   0.009   0.457
 system.time(ghp::ghp("stunting", india, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
-#>   4.082   0.043   4.155
+#>   4.056   0.036   4.118
 ```
 
 This README.Rmd was run on:
 
 ``` r
 date()
-#> [1] "Tue Aug 22 15:15:12 2017"
+#> [1] "Tue Aug 22 21:37:05 2017"
 ```
