@@ -146,15 +146,15 @@ Unfortunately, `ghp` is slower than the original `hier.part` package, mostly bec
 system.time(hier.part::hier.part(india$stunting, dplyr::select(india, -stunting), gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
-#>   0.449   0.014   0.520
+#>   0.433   0.011   0.458
 system.time(ghp::ghp("stunting", india, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
-#>    4.08    0.04    4.17
+#>   4.082   0.043   4.155
 ```
 
 This README.Rmd was run on:
 
 ``` r
 date()
-#> [1] "Mon Aug 21 14:20:07 2017"
+#> [1] "Tue Aug 22 15:15:12 2017"
 ```

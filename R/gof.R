@@ -40,19 +40,8 @@ gof_lm <- function(depname, data, gof = "r.squared") {
   models <- apply(combinations, MARGIN = 1, FUN = function(x)
     return(lm(dep ~ ., data = as.data.frame(indep[, x[x > 0]]))))
 
-  if (gof == "r.squared") {
-    gofs <- sapply(models, FUN = function(x) return(summary(x)$r.squared))
-    gofs <- c(summary(m0)$r.squared, gofs) # plus empty model
-  } else if (gof == "AIC") {
-    gofs <- sapply(models, FUN = function(x) return(AIC(x)))
-    gofs <- c(AIC(m0), gofs) # plus empty model
-  } else if (gof == "loglik") {
-    gofs <- sapply(models, FUN = function(x) return(logLik(x)))
-    gofs <- c(logLik(m0), gofs) # plus empty model
-  } else if (gof == "deviance") {
-    gofs <- sapply(models, FUN = function(x) return(deviance(x)))
-    gofs <- c(deviance(m0), gofs) # plus empty model
-  }
+  # Get gofs for all models
+  gofs <- gof_getter(m0, models, gof)
 
   # Attach gof
   attr(gofs, "gof") <- gof
@@ -93,22 +82,12 @@ gof_gamlss <- function(depname, data, gof = "deviance", npar = 1) {
       return(gamlss(dep ~ 1, sigma.formula = ~ ., trace = FALSE,
                     data = as.data.frame(indep[, x[x > 0]]))))
 
-  if (gof == "AIC") {
-    gofs <- sapply(models_mu, FUN = AIC)
-    gofs <- c(AIC(m0), gofs)
-    # Do the same for sigma parameters
-    if (npar == 2) {
-      gofs_sigma <- sapply(models_sigma, FUN = AIC)
-      gofs_sigma <- c(AIC(m0), gofs_sigma)
-    }
-  } else if (gof == "deviance") {
-    gofs <- sapply(models_mu, FUN = deviance)
-    gofs <- c(deviance(m0), gofs)
-    if (npar == 2) {
-      gofs_sigma <- sapply(models_sigma, FUN = deviance)
-      gofs_sigma <- c(deviance(m0), gofs_sigma)
-    }
-  }
+  # Get gofs
+  if (npar == 1)
+    gofs <- gof_getter(m0, models_mu, gof)
+  else if (npar == 2)
+    gofs <- gof_getter(m0, list(mu = models_mu, sigma = models_sigma),
+                       gof, npar)
 
   # What to return?
   if (npar == 1) {
@@ -117,8 +96,7 @@ gof_gamlss <- function(depname, data, gof = "deviance", npar = 1) {
   }
   if (npar == 2) {
     attr(gofs, "gof") <- gof
-    attr(gofs_sigma, "gof") <- gof
-    return(list(mu = gofs, sigma = gofs_sigma))
+    return(gofs)
   }
 }
 

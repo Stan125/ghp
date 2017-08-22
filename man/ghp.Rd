@@ -4,7 +4,8 @@
 \alias{ghp}
 \title{Function to do hierarchical partitioning}
 \usage{
-ghp(depname, data, gof = "r.squared", method = "lm", npar = 1)
+ghp(depname, data, gof = "r.squared", method = "lm", npar = 1,
+  groups = NULL)
 }
 \description{
 Function to do hierarchical partitioning

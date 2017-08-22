@@ -3,7 +3,8 @@
 #' @export
 #'
 
-ghp <- function(depname, data, gof = "r.squared", method = "lm", npar = 1) {
+ghp <- function(depname, data, gof = "r.squared", method = "lm", npar = 1,
+                groups = NULL) {
   gofs <- gof(depname, data, method, gof, npar)
   if (npar == 1) {
     results <- part(gofs, depname, data)
