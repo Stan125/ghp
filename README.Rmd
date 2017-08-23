@@ -49,6 +49,22 @@ results_gamlss <- ghp("stunting", india, method = "gamlss",
 results_gamlss
 ```
 
+## Example: Variable grouping
+
+Since 0.3.0 you can specify variable groups. The partitioning is now not happening with specific variables, but by testing all group combinations. In the given `ghp::india` dataset, which captures the nutrition of children in india we can now divide all covariates into to groups: those that give information about the child, and those that give information about the mother. Let's try that out:
+
+```{r}
+# Specifying the groups should happen in a data.frame 
+groupings <- data.frame(varnames = colnames(india), 
+                        groups = c("0", "child", "child", "mother", 
+                                   "child", "mother", "mother", "mother"))
+results_groups <- ghp(depname = "stunting", india, method = "lm", gof = "r.squared",
+                      group_df = groupings)
+results_groups
+
+```
+
+We can now see that both groups have almost the same amount of influence on the $R^2$.
 
 ## Bar Plots
 To get a bar plot of the percentage independent effects, use `plot_ghp()`:

@@ -1,7 +1,7 @@
 Package: ghp
 Type: Package
 Title: Generalisation of hierarchical partitioning
-Version: 0.1.0
+Version: 0.3.0
 Author: Stanislaus Stadlmann <stanislaus@stadlmann.cm>
 Maintainer: Stanislaus Stadlmann <stanislaus@stadlmann.cm>
 Description: This package is a generalisation of hierarchical partitioning, 

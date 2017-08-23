@@ -120,6 +120,37 @@ results_gamlss
 #> [1] "deviance"
 ```
 
+Example: Variable grouping
+--------------------------
+
+Since 0.3.0 you can specify variable groups. The partitioning is now not happening with specific variables, but by testing all group combinations. In the given `ghp::india` dataset, which captures the nutrition of children in india we can now divide all covariates into to groups: those that give information about the child, and those that give information about the mother. Let's try that out:
+
+``` r
+# Specifying the groups should happen in a data.frame 
+groupings <- data.frame(varnames = colnames(india), 
+                        groups = c("0", "child", "child", "mother", 
+                                   "child", "mother", "mother", "mother"))
+results_groups <- ghp(depname = "stunting", india, method = "lm", gof = "r.squared",
+                      group_df = groupings)
+results_groups
+#> $actual
+#>                 I           J      Total
+#> child  0.02180910 0.006937903 0.02874700
+#> mother 0.02324181 0.006937903 0.03017972
+#> 
+#> $perc
+#>               I  J
+#> child  48.40989 50
+#> mother 51.59011 50
+#> 
+#> attr(,"npar")
+#> [1] 1
+#> attr(,"gof")
+#> [1] "r.squared"
+```
+
+We can now see that both groups have almost the same amount of influence on the *R*<sup>2</sup>.
+
 Bar Plots
 ---------
 
@@ -146,15 +177,15 @@ Unfortunately, `ghp` is slower than the original `hier.part` package, mostly bec
 system.time(hier.part::hier.part(india$stunting, dplyr::select(india, -stunting), gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
-#>   0.442   0.009   0.457
+#>   0.435   0.010   0.449
 system.time(ghp::ghp("stunting", india, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
-#>   4.056   0.036   4.118
+#>   4.233   0.047   4.335
 ```
 
 This README.Rmd was run on:
 
 ``` r
 date()
-#> [1] "Tue Aug 22 21:37:05 2017"
+#> [1] "Wed Aug 23 12:27:01 2017"
 ```

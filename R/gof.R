@@ -2,7 +2,7 @@
 #'
 #' @export
 
-gof <- function(depname, data, method = "lm", gof, npar = 1) {
+gof <- function(depname, data, method = "lm", gof, npar = 1, group_df = NULL) {
   # Stop if goodness of fit not implemented
   if (method == "lm") {
     available_gofs <- c("AIC", "r.squared", "loglik", "deviance")
@@ -20,7 +20,9 @@ gof <- function(depname, data, method = "lm", gof, npar = 1) {
   ## Selecting dep and indep of data
   data <- na.omit(data)
   dep <- data[, depname]
-  indep <- as.list(data[, !grepl(depname, colnames(data))])
+
+  # Transform the independent variables (Grouping happens here)
+  indep <- indep_tf(depname, data, group_df)
 
   # Combinations
   combinations <- acc(length(indep))$combs
@@ -28,7 +30,7 @@ gof <- function(depname, data, method = "lm", gof, npar = 1) {
   # Empty model
   m0 <- model_fitter(dep, method = method, empty = TRUE)
 
-  # Get models
+  # Get non-empty models
   models <- model_fitter(dep, indep, combinations, method, npar)
 
   # Get gofs

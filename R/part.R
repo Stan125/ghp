@@ -4,13 +4,13 @@
 #' @import Matrix
 
 ## Do partitioning
-part <- function(gofs, depname, data) {
+part <- function(gofs, depname, data, group_df = NULL) {
 
-  # Select indep by dropping dep
-  indep <- data[, !grepl(depname, colnames(data))]
+  # Transform the independent variables (Grouping happens here)
+  indep <- indep_tf(depname, data, group_df)
 
   # Get number of vars
-  nvar <- ncol(indep)
+  nvar <- length(indep)
 
   # Get all permutations and sort them
   perms <- permn(nvar)
@@ -48,7 +48,7 @@ part <- function(gofs, depname, data) {
   df_compl <- data.frame(I = I, Total = Tot)
   df_compl$J <- with(df_compl, Total - I)
   df_compl <- df_compl[, c("I", "J", "Total")]
-  row.names(df_compl) <- colnames(indep)
+  row.names(df_compl) <- names(indep)
 
   # Percentages
   df_perc <- as.data.frame(apply(df_compl[, -3], MARGIN = 2,
