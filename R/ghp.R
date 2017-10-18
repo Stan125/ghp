@@ -1,7 +1,6 @@
 #' Function to do hierarchical partitioning
 #'
 #' @export
-#'
 
 ghp <- function(depname, data, gof = "r.squared", method = "lm", npar = 1,
                 group_df = NULL) {
@@ -51,6 +50,8 @@ acc <- function(k) {
 
 #' Internal function: Calculate number of combinations
 #'
+#'@keywords internal
+
 n_combs <- function(n, r)
   return(factorial(n) / (factorial(n - r) * factorial(r)))
 

@@ -1,5 +1,6 @@
 #' Internal: Function to fit all model combinations
 #'
+#' @keywords internal
 #' @importFrom gamlss gamlss
 
 model_fitter <- function(dep, indep = NULL, combinations = NULL, method,

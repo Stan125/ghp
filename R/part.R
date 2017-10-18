@@ -2,12 +2,19 @@
 #'
 #' @importFrom combinat permn
 #' @import Matrix
+#' @export
 
 ## Do partitioning
-part <- function(gofs, depname, data, group_df = NULL) {
+part <- function(gofs, depname, data, group_df = NULL, outside = FALSE) {
 
   # Transform the independent variables (Grouping happens here)
-  indep <- indep_tf(depname, data, group_df)
+  # but only if the data come from the inside of the package
+  if (!outside) {
+    indep <- indep_tf(depname, data, group_df)
+  } else if (outside) {
+    indep <- data
+  }
+
 
   # Get number of vars
   nvar <- length(indep)
@@ -59,7 +66,7 @@ part <- function(gofs, depname, data, group_df = NULL) {
 
 #' Get differences of GOF's for a given combination of covariate numbers
 #'
-#'
+#' @keywords internal
 perm_diff <- function(perm, names, gofs) {
   ## Construct names of gof models
   p1 <- list()

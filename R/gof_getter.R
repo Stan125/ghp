@@ -1,7 +1,7 @@
 #' Internal function to get GOF of all fitted models (including the intercept model)
 #'
-#'
-#'
+#' @keywords internal
+
 gof_getter <- function(m0, models, gof, npar = 1) {
   if (npar == 1) {
     if (gof == "r.squared") {

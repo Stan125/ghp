@@ -1,5 +1,6 @@
 #' Internal: Transform the independent variables for obtaining goodness of fit
 #'
+#' @keywords internal
 
 indep_tf <- function(depname, data, group_df = NULL) {
   if (is.null(group_df)) {
