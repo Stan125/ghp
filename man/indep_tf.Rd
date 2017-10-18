@@ -9,3 +9,4 @@ indep_tf(depname, data, group_df = NULL)
 \description{
 Internal: Transform the independent variables for obtaining goodness of fit
 }
+\keyword{internal}

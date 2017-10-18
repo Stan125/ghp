@@ -3,6 +3,7 @@
 export(acc)
 export(ghp)
 export(gof)
+export(part)
 export(plot_ghp)
 import(Matrix)
 import(ggplot2)

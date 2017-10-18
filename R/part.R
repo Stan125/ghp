@@ -15,7 +15,6 @@ part <- function(gofs, depname, data, group_df = NULL, outside = FALSE) {
     indep <- data
   }
 
-
   # Get number of vars
   nvar <- length(indep)
 

@@ -9,3 +9,4 @@ perm_diff(perm, names, gofs)
 \description{
 Get differences of GOF's for a given combination of covariate numbers
 }
+\keyword{internal}

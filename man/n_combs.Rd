@@ -9,3 +9,4 @@ n_combs(n, r)
 \description{
 Internal function: Calculate number of combinations
 }
+\keyword{internal}

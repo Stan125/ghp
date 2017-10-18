@@ -9,3 +9,4 @@ gof_getter(m0, models, gof, npar = 1)
 \description{
 Internal function to get GOF of all fitted models (including the intercept model)
 }
+\keyword{internal}

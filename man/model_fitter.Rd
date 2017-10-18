@@ -10,3 +10,4 @@ model_fitter(dep, indep = NULL, combinations = NULL, method, npar = 1,
 \description{
 Internal: Function to fit all model combinations
 }
+\keyword{internal}
