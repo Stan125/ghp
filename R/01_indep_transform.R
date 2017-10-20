@@ -1,11 +1,15 @@
 #' Internal: Transform the independent variables for obtaining goodness of fit
 #'
 #' @keywords internal
+#' @export
 
 indep_tf <- function(depname, data, group_df = NULL) {
+  # Omit NA's
+  data <- na.omit(data)
+
   if (is.null(group_df)) {
     indep <- as.list(data[, !grepl(depname, colnames(data))])
-    return(indep)
+    return(list(dep = data[[depname]], indep = indep))
   } else if (!is.null(group_df)) {
     # Make all columns of groups characters
     group_df <- as.data.frame(apply(group_df, MARGIN = 2, FUN = as.character),
@@ -21,6 +25,6 @@ indep_tf <- function(depname, data, group_df = NULL) {
 
     names(indep_list) <- unique_groups
 
-    return(indep_list)
+    return(list(dep = data[[depname]], indep = indep_list))
   }
 }
