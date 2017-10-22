@@ -4,7 +4,7 @@
 
 as_goodfit <- function(list) {
   # Stop if type is not list
-  if (!class(list) != "list")
+  if (!class(list) == "list")
     stop("Class not list.")
 
   # Should be of length 6
