@@ -20,7 +20,8 @@ Imports:
         gtools(>= 3.5.0)
 Suggests:
         testthat (>= 1.0.2),
-        rmarkdown (>= 1.6)
+        rmarkdown (>= 1.6),
+        gridExtra (>= 2.3)
 License: GPL-2
 URL: https://github.com/Stan125/ghp
 BugReports: https://github.com/Stan125/ghp/issues

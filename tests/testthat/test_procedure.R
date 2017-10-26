@@ -142,5 +142,5 @@ parts <- lapply(all_gofs_list, FUN = test_part)
 ### --- 4. Plotting --- ###
 plots <- lapply(parts, plot_ghp)
 expect_error(ggsave(filename = "plots_ghp.pdf",
-                    gridExtra::grid.arrange(grobs = plots)), regexp = NA)
+                    grid.arrange(grobs = plots)), regexp = NA)
 file.remove("plots_ghp.pdf")
