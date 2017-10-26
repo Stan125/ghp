@@ -1,5 +1,33 @@
-#' Function to do hierarchical partitioning
+#' Hierarchical Partitioning
 #'
+#' Core function of the \code{ghp} package. Gives the ability to fit all
+#' possible models and then find out what influence certain variables or groups
+#' of variables have on a specified goodness of fit.
+#'
+#' This function computes the hierarchical partitioning in four steps:
+#' \enumerate{\item Transforming the data (necessary because of the ability to
+#' specify groups of variables), \code{\link{indep_tf}} \item Fitting of all
+#' possible models \code{\link{mfit}} \item Obtaining the wanted goodness-of-fit
+#' figures \code{\link{gof}} \item Do hierarchical partitioning
+#' \code{\link{part}}} Afterwards, you can plot the results with
+#' \code{\link{plot_ghp}}
+#'
+#' @param npar Number of distributional parameters for which hierarchical
+#'   partitioning should be done.
+#' @inheritParams indep_tf
+#' @inheritParams mfit
+#' @inheritParams gof
+#' @examples
+#' # Dataset
+#' india <- ghp::india
+#'
+#' # Linear models: Partitioning of r.squared
+#' results_lm <- ghp(depname = "stunting", india, method = "lm", gof = "r.squared")
+#' results_lm
+#'
+#' # Gamlss models: Partitioning of deviance (npar = 2)
+#' results_gamlss <- ghp("stunting", india, method = "gamlss", gof = "deviance", npar = 2)
+#' results_gamlss
 #' @export
 
 ghp <- function(depname, data, gof = "r.squared", method = "lm", npar = 1,

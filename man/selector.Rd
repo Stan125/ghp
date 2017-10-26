@@ -7,6 +7,6 @@
 selector(list, selection)
 }
 \description{
-Internal: Function to make a dataframe out of selected list parts
+Used for \link{\code{mfit}}.
 }
 \keyword{internal}

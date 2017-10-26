@@ -1,6 +1,33 @@
-#' Internal: Transform the independent variables for obtaining goodness of fit
+#' Data Transformer
 #'
-#' @keywords internal
+#' Step One: Transforms the independent variables so it can be further used in
+#' \code{\link{mfit}}.
+#'
+#' The existence of this function is based on the ability to provide groups for
+#' partitioning in \code{\link{ghp}}. If there were no groups given, this
+#' function essentially converts the dataframe to a list with one element per
+#' explanatory variable, then puts it into another list and attaches some useful
+#' information.
+#'
+#' @param depname The name of the dependent variable in character form, e.g.
+#'   \code{"depvar"}.
+#' @param data A data.frame holding all relevant explanatory variables.
+#' @param group_df A data.frame object for grouping. One column, \code{varnames}
+#'   depicts the explanatory variables in character form. The other one, called
+#'   \code{groups} depicts the group each variable belongs to, with the
+#'   dependent variable being in the group \code{0}. See the examples section
+#'   for an example.
+#' @return A list with two elements: \enumerate{ \item \strong{dep}: A vector
+#'   with the dependent variable. \item \strong{indep}: A list with either one
+#'   vector per variable (ungrouped) as elements, or one data.frame with all
+#'   variables belonging to one group as elements. }
+#' @examples
+#' # Ungrouped
+#' indep_tf("Species", iris)
+#'
+#' # Grouped
+#' groupings <- data.frame(varnames = colnames(iris), varnames = c("Sepal", "Sepal", "Petal", "Petal", "0"))
+#' indep_tf("Species", iris, group_df = groupings)
 #' @export
 
 indep_tf <- function(depname, data, group_df = NULL) {

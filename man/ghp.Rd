@@ -2,11 +2,57 @@
 % Please edit documentation in R/ghp.R
 \name{ghp}
 \alias{ghp}
-\title{Function to do hierarchical partitioning}
+\title{Hierarchical Partitioning}
 \usage{
 ghp(depname, data, gof = "r.squared", method = "lm", npar = 1,
   group_df = NULL)
 }
+\arguments{
+\item{depname}{The name of the dependent variable in character form, e.g.
+\code{"depvar"}.}
+
+\item{data}{A data.frame holding all relevant explanatory variables.}
+
+\item{gof}{Goodness of fit which should be obtained for all models. Which is
+available depends on the method with which the models were computed.
+Currently: \itemize{\item \strong{lm method}: "AIC", "r.squared", "loglik",
+"deviance" \item \strong{gamlss method}: "AIC", "deviance"}}
+
+\item{method}{The method with which the models shall be computed. Can be one
+of \code{"lm"} (linear models) and \code{"gamlss"}.}
+
+\item{npar}{Number of distributional parameters for which hierarchical
+partitioning should be done.}
+
+\item{group_df}{A data.frame object for grouping. One column, \code{varnames}
+depicts the explanatory variables in character form. The other one, called
+\code{groups} depicts the group each variable belongs to, with the
+dependent variable being in the group \code{0}. See the examples section
+for an example.}
+}
 \description{
-Function to do hierarchical partitioning
+Core function of the \code{ghp} package. Gives the ability to fit all
+possible models and then find out what influence certain variables or groups
+of variables have on a specified goodness of fit.
+}
+\details{
+This function computes the hierarchical partitioning in four steps:
+\enumerate{\item Transforming the data (necessary because of the ability to
+specify groups of variables), \code{\link{indep_tf}} \item Fitting of all
+possible models \code{\link{mfit}} \item Obtaining the wanted goodness-of-fit
+figures \code{\link{gof}} \item Do hierarchical partitioning
+\code{\link{part}}} Afterwards, you can plot the results with
+\code{\link{plot_ghp}}
+}
+\examples{
+# Dataset
+india <- ghp::india
+
+# Linear models: Partitioning of r.squared
+results_lm <- ghp(depname = "stunting", india, method = "lm", gof = "r.squared")
+results_lm
+
+# Gamlss models: Partitioning of deviance (npar = 2)
+results_gamlss <- ghp("stunting", india, method = "gamlss", gof = "deviance", npar = 2)
+results_gamlss
 }

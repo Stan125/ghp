@@ -7,6 +7,6 @@
 n_combs(n, r)
 }
 \description{
-Internal function: Calculate number of combinations
+Used for \link{\code{mfit}}.
 }
 \keyword{internal}

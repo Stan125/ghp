@@ -1,10 +1,32 @@
-#' Step Two: Fit all possible model combinations
+#' Model fitter
 #'
-#' @param data A list with two components: \code{dep}, a vector with the dependent
-#'   variable, and \code{indep}, with the independent variables. The independent
-#'   variables can be grouped or not. This list is best created by \code{\link{indep_tf}}.
+#' Step Two: Fits all possible model combinations with a certain method given
+#' the data.
+#'
+#' This function is used for computing all possible models to later extract the
+#' wanted goodness of fit. This function relies on \code{\link{acc}} to get
+#' modelnames which are also attached in the exported list.
+#'
+#' @param data A list with two elements: \enumerate{ \item \strong{dep}: A
+#'   vector with the dependent variable. \item \strong{indep}: A list with
+#'   either one vector per variable (ungrouped) as elements, or one data.frame
+#'   with all variables belonging to one group as elements. }. Best created by
+#'   \code{\link{indep_tf}}.
+#' @param method The method with which the models shall be computed. Can be one
+#'   of \code{"lm"} (linear models) and \code{"gamlss"}.
+#' @param npar Number of distributional parameters for which models should be
+#'   computed. Can be one if only the expected value of the dependent variable
+#'   should be modeled, or 2 if models for modeling the variance of the
+#'   dependent variable should also be computed. \code{npar = 2} is only
+#'   possible in combination with \code{method = "gamlss"}.
 #' @export
-#' @return A list with the following components:
+#' @return A list with five components: \enumerate{ \item models: A list
+#'   with one or two elements. Each element has all possible model fits in it.
+#'   Each element represents one distributional parameter. \item modelids: A
+#'   character vector with model id's corresponding to the models. in the models
+#'   element \item expl_names: names of explanatory variables (ungrouped case)
+#'   or group names (grouped case). \item npar: Number of parameters which are
+#'   modeled. \item method: One of "lm", "gamlss". }
 mfit <- function(data, method, npar = 1) {
   # Give error when method not supported
   supp_meths <- c("lm", "gamlss")
