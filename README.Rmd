@@ -14,6 +14,7 @@ library(ghp)
 ```
 
 # ghp
+[![Build Status](https://travis-ci.org/Stan125/ghp.svg?branch=master)](https://travis-ci.org/Stan125/ghp)
 
 GHP stands for General Hierarchical Partitioning. `ghp` is an implementation of the technique of hierarchical partitioning first mentioned by Chevan and Sutherland (1991). This method fits all possible models for a set of covariates and then extracts a goodness of fit (e.g. $R^2$ for linear models) to obtain independent and joint contributions of the independent variables on the selected figure.
 

@@ -3,6 +3,8 @@
 ghp
 ===
 
+[![Build Status](https://travis-ci.org/Stan125/ghp.svg?branch=master)](https://travis-ci.org/Stan125/ghp)
+
 GHP stands for General Hierarchical Partitioning. `ghp` is an implementation of the technique of hierarchical partitioning first mentioned by Chevan and Sutherland (1991). This method fits all possible models for a set of covariates and then extracts a goodness of fit (e.g. *R*<sup>2</sup> for linear models) to obtain independent and joint contributions of the independent variables on the selected figure.
 
 This package is an extension of the `hier.part` R package, developed by C. Walsh and R. Mac Nally in 2003. While `hier.part` is fast and simple at what it does, it is limited in the range of possible models as well as goodness of fit figures. Specifically, the motivation of this package is the ability to do deviance partitioning.
@@ -158,15 +160,15 @@ Unfortunately, `ghp` is slower than the original `hier.part` package, mostly bec
 system.time(hier.part::hier.part(india$stunting, dplyr::select(india, -stunting), gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
-#>   0.437   0.010   0.458
+#>   0.468   0.011   0.498
 system.time(ghp::ghp("stunting", india, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
-#>   4.096   0.060   4.165
+#>   4.170   0.043   4.280
 ```
 
 This README.Rmd was run on:
 
 ``` r
 date()
-#> [1] "Sun Oct 22 22:44:32 2017"
+#> [1] "Thu Oct 26 11:29:07 2017"
 ```
