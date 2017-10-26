@@ -1,5 +1,7 @@
 #' Step Four: Do hierarchical partitioning
 #'
+#' @param gofs_list A goodfit object, preferably made with \code{\link{goodfit}}
+#'   or \code{\link{gof}}
 #' @importFrom tibble add_column
 #' @export
 

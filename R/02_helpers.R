@@ -36,7 +36,7 @@ acc <- function(k) {
 
 #' Internal function: Calculate number of combinations
 #'
-#' Used for \link{\code{mfit}}.
+#' Used for \code{\link{mfit}}.
 #'
 #'@keywords internal
 
@@ -45,7 +45,7 @@ n_combs <- function(n, r)
 
 #' Internal: Function to make a dataframe out of selected list parts
 #'
-#' Used for \link{\code{mfit}}.
+#' Used for \code{\link{mfit}}.
 #'
 #' @keywords internal
 

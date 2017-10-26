@@ -26,7 +26,7 @@
 #' indep_tf("Species", iris)
 #'
 #' # Grouped
-#' groupings <- data.frame(varnames = colnames(iris), varnames = c("Sepal", "Sepal", "Petal", "Petal", "0"))
+#' groupings <- data.frame(varnames = colnames(iris), groups = c("Sepal", "Sepal", "Petal", "Petal", "0"))
 #' indep_tf("Species", iris, group_df = groupings)
 #' @export
 

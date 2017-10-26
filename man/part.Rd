@@ -6,6 +6,10 @@
 \usage{
 part(gofs_list)
 }
+\arguments{
+\item{gofs_list}{A goodfit object, preferably made with \code{\link{goodfit}}
+or \code{\link{gof}}}
+}
 \description{
 Step Four: Do hierarchical partitioning
 }

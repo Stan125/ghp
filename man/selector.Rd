@@ -7,6 +7,6 @@
 selector(list, selection)
 }
 \description{
-Used for \link{\code{mfit}}.
+Used for \code{\link{mfit}}.
 }
 \keyword{internal}

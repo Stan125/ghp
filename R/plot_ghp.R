@@ -1,5 +1,6 @@
 #' Plot ghp results
 #'
+#' @param part A 'part' object generated with \code{\link{part}}.
 #' @import ggplot2
 #' @export
 

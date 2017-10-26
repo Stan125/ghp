@@ -4,7 +4,7 @@
 library(ghp)
 library(tibble)
 library(gridExtra)
-library(ggsave)
+library(ggplot2)
 
 ## Remove everything
 rm(list = ls())

@@ -7,6 +7,6 @@
 n_combs(n, r)
 }
 \description{
-Used for \link{\code{mfit}}.
+Used for \code{\link{mfit}}.
 }
 \keyword{internal}

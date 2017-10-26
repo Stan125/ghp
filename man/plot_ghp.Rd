@@ -6,6 +6,9 @@
 \usage{
 plot_ghp(part)
 }
+\arguments{
+\item{part}{A 'part' object generated with \code{\link{part}}.}
+}
 \description{
 Plot ghp results
 }
