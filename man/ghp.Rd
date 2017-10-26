@@ -52,7 +52,7 @@ india <- ghp::india
 results_lm <- ghp(depname = "stunting", india, method = "lm", gof = "r.squared")
 results_lm
 
-# Gamlss models: Partitioning of deviance (npar = 2)
+# GAMLSS models: Partitioning of deviance (npar = 2)
 results_gamlss <- ghp("stunting", india, method = "gamlss", gof = "deviance", npar = 2)
 results_gamlss
 }
