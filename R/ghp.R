@@ -17,6 +17,8 @@
 #' @inheritParams indep_tf
 #' @inheritParams mfit
 #' @inheritParams gof
+#' @useDynLib ghp
+#' @importFrom Rcpp sourceCpp
 #' @examples
 #' # Dataset
 #' india <- ghp::india

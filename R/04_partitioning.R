@@ -56,7 +56,7 @@ part_core <- function(gofs_vector, expl_names, model_ids) {
 
   # Differences for each permutation and each modeled parameter
   diffs <- lapply(perms, FUN = function(x)
-    return(perm_diff(x, model_ids, gofs_vector)))
+    return(perm_cpp(x, model_ids, gofs_vector)))
 
   # Get mean per grouping
   diffs_mean <- sapply(diffs, mean)

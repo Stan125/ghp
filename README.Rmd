@@ -75,7 +75,7 @@ plot_ghp(results_gamlss)
 ```
 
 ## Comparison with hier.part
-Unfortunately, `ghp` is slower than the original `hier.part` package, mostly because it does not rely on C code. A quick time comparison for the same problem:
+Since `0.4.0`, `ghp` is almost as fast as its counterpart `hier.part`, because the core partitioning was written with C++. A quick comparison:
 ```{r}
 system.time(hier.part::hier.part(india$stunting, dplyr::select(india, -stunting), gof = "Rsqu", barplot = FALSE))
 system.time(ghp::ghp("stunting", india, method = "lm", gof = "r.squared"))
