@@ -2,6 +2,12 @@
 #include <algorithm>
 #include <vector>
 
+//' Core partitioning function
+//'
+//' Computes the corresponding difference of a model combination with or without a variable (first one in the permutation). Written in C++.
+//' @param perm One permutation of the variable numbers list
+//' @model_ids A numeric vector with unique model id's
+//' @gofs_vector A numeric vector with goodness-of-fit numbers
 // [[Rcpp::export]]
 Rcpp::NumericVector perm_cpp(Rcpp::NumericVector perm, Rcpp::CharacterVector model_ids, Rcpp::NumericVector gofs_vector) {
   int psize = perm.size();

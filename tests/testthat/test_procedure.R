@@ -5,6 +5,7 @@ library(ghp)
 library(tibble)
 library(gridExtra)
 library(ggplot2)
+library(testthat)
 
 ## Remove everything
 rm(list = ls())
