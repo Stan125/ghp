@@ -80,32 +80,3 @@ part_core <- function(gofs_vector, expl_names, model_ids) {
 
   return(tib)
 }
-
-#' Get differences of GOF's for a given combination of covariate numbers
-#'
-#' @keywords internal
-perm_diff <- function(perm, model_ids, gofs_vector) {
-  ## Construct names of gof models
-  p1 <- lapply(1:length(perm), FUN = function(x)
-    return(perm[1:x]))
-  pdiff <- lapply(p1, function(x) return(x[-1]))
-  pdiff[[1]] <- 0
-
-  # Sort both lists per vector
-  p1 <- lapply(p1, FUN = sort)
-  pdiff <- lapply(pdiff, FUN = sort)
-
-  # Get model names for indices
-  p1 <- sapply(p1, FUN = function(x)
-    return(do.call(paste0, as.list(c("x", x)))))
-  pdiff <- sapply(pdiff, FUN = function(x)
-    return(do.call(paste0, as.list(c("x", x)))))
-
-  # Get indices for the names
-  p1_ind <- sapply(p1, FUN = function(x)
-    return(which(x == model_ids)))
-  pdiff_ind <- sapply(pdiff, FUN = function(x)
-    return(which(x == model_ids)))
-  diff <- gofs_vector[p1_ind] - gofs_vector[pdiff_ind]
-  return(diff)
-}
