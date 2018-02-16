@@ -37,7 +37,8 @@ part <- function(gofs_list) {
 
   # Assemble part class
   part <- list(results = results, npar = gofs_list$npar,
-               method = gofs_list$method, gof = gofs_list$gof)
+               method = gofs_list$method, gof = gofs_list$gof,
+               joint_results = joint_res)
   class(part) <- "part"
 
   # Return the class object
