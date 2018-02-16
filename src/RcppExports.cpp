@@ -6,15 +6,15 @@
 using namespace Rcpp;
 
 // perm_cpp
-Rcpp::NumericVector perm_cpp(Rcpp::NumericVector perm, Rcpp::CharacterVector model_ids, Rcpp::NumericVector gofs_vector);
-RcppExport SEXP _ghp_perm_cpp(SEXP permSEXP, SEXP model_idsSEXP, SEXP gofs_vectorSEXP) {
+Rcpp::List perm_cpp(Rcpp::NumericMatrix perms, Rcpp::CharacterVector model_ids, Rcpp::NumericVector gofs_vector);
+RcppExport SEXP _ghp_perm_cpp(SEXP permsSEXP, SEXP model_idsSEXP, SEXP gofs_vectorSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type perm(permSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type perms(permsSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type model_ids(model_idsSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type gofs_vector(gofs_vectorSEXP);
-    rcpp_result_gen = Rcpp::wrap(perm_cpp(perm, model_ids, gofs_vector));
+    rcpp_result_gen = Rcpp::wrap(perm_cpp(perms, model_ids, gofs_vector));
     return rcpp_result_gen;
 END_RCPP
 }

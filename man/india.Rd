@@ -4,7 +4,7 @@
 \name{india}
 \alias{india}
 \title{Malnutrition in india}
-\format{An object of class \code{data.frame} with 500 rows and 8 columns.}
+\format{An object of class \code{data.frame} with 391 rows and 8 columns.}
 \usage{
 india
 }
