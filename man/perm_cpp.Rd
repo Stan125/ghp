@@ -7,11 +7,11 @@
 perm_cpp(perms, model_ids, gofs_vector)
 }
 \arguments{
+\item{perms}{All permutations in a matrix}
+
 \item{model_ids}{A numeric vector with unique model id's}
 
 \item{gofs_vector}{A numeric vector with goodness-of-fit numbers}
-
-\item{perm}{All permutations in a matrix}
 }
 \description{
 Computes the corresponding difference of a model combination with or without a variable (first one in the permutation). Written in C++.

@@ -226,15 +226,15 @@ comparison:
 system.time(hier.part::hier.part(india$stunting, dplyr::select(india, -stunting), gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
-#>   0.331   0.010   0.342
+#>   0.418   0.009   0.433
 system.time(ghp::ghp("stunting", india, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
-#>   0.334   0.003   0.341
+#>   0.475   0.016   0.505
 ```
 
 This README.Rmd was run on:
 
 ``` r
 date()
-#> [1] "Fri Feb 16 18:14:27 2018"
+#> [1] "Mon Feb 19 15:07:34 2018"
 ```
