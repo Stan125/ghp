@@ -125,7 +125,7 @@ test_part <- function(gofs_list) {
   expect_s3_class(parts, "part")
 
   # Right size of object
-  expect_equal(length(parts), 4)
+  expect_equal(length(parts), 5)
 
   # If npar == 2 then df has to be longer
   if (parts$npar == 1)
@@ -145,3 +145,4 @@ plots <- lapply(parts, plot_ghp)
 expect_error(ggsave(filename = "plots_ghp.pdf",
                     grid.arrange(grobs = plots)), regexp = NA)
 file.remove("plots_ghp.pdf")
+
