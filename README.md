@@ -61,9 +61,9 @@ results_lm
 #> [1] "r.squared"
 #> 
 #> $joint_results
-#> # A tibble: 7 x 8
+#> # A tibble: 8 x 15
 #>   var       cage     csex breastfeeding    ctwin    mage    mbmi mreligion
-#>   <chr>    <dbl>    <dbl>         <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+#> * <fct>    <dbl>    <dbl>         <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
 #> 1 cage   0        1.74e⁻⁵       0.00404  3.57e⁻⁶ 0.00140 9.85e⁻⁴   2.53e⁻⁴
 #> 2 csex   0.00180  0             0.00237 -1.12e⁻⁶ 0.00128 1.18e⁻³   7.06e⁻⁵
 #> 3 breas… 0.00343 -3.08e⁻⁵       0        2.86e⁻⁶ 0.00139 1.77e⁻³   1.41e⁻⁴
@@ -71,6 +71,10 @@ results_lm
 #> 5 mage   0.00191  1.23e⁻⁶       0.00251  3.11e⁻⁶ 0       2.30e⁻³  -3.25e⁻⁵
 #> 6 mbmi   0.00150 -8.99e⁻⁵       0.00289 -2.49e⁻⁵ 0.00231 0         1.05e⁻⁴
 #> 7 mreli… 0.00193 -4.27e⁻⁵       0.00243 -3.44e⁻⁶ 0.00113 1.26e⁻³   0      
+#> 8 SUM    0.0123  -1.67e⁻⁴       0.0166  -1.99e⁻⁵ 0.00878 8.72e⁻³   6.26e⁻⁴
+#> # ... with 7 more variables: cage_perc <dbl>, csex_perc <dbl>,
+#> #   breastfeeding_perc <dbl>, ctwin_perc <dbl>, mage_perc <dbl>,
+#> #   mbmi_perc <dbl>, mreligion_perc <dbl>
 #> 
 #> attr(,"class")
 #> [1] "part"
@@ -123,28 +127,36 @@ results_gamlss
 #> 
 #> $joint_results
 #> $joint_results$res_mu
-#> # A tibble: 7 x 8
-#>   var            cage  csex breastfeeding ctwin  mage  mbmi mreligion
-#>   <chr>         <dbl> <dbl>         <dbl> <dbl> <dbl> <dbl>     <dbl>
-#> 1 cage           5012   716           715   716   716   716       716
-#> 2 csex            715  5012           715   716   716   716       716
-#> 3 breastfeeding   715   716          5012   716   716   715       716
-#> 4 ctwin           715   716           715  5012   716   716       716
-#> 5 mage            715   716           715   716  5012   715       716
-#> 6 mbmi            716   716           715   716   715  5012       716
-#> 7 mreligion       715   716           715   716   716   716      5012
+#> # A tibble: 8 x 15
+#>   var       cage  csex breastfeeding ctwin  mage  mbmi mreligion cage_perc
+#> * <fct>    <dbl> <dbl>         <dbl> <dbl> <dbl> <dbl>     <dbl>     <dbl>
+#> 1 cage      5012   716           715   716   716   716       716    0.539 
+#> 2 csex       715  5012           715   716   716   716       716    0.0769
+#> 3 breastf…   715   716          5012   716   716   715       716    0.0768
+#> 4 ctwin      715   716           715  5012   716   716       716    0.0769
+#> 5 mage       715   716           715   716  5012   715       716    0.0769
+#> 6 mbmi       716   716           715   716   715  5012       716    0.0769
+#> 7 mreligi…   715   716           715   716   716   716      5012    0.0769
+#> 8 SUM       9304  9309          9303  9309  9306  9306      9309    1.00  
+#> # ... with 6 more variables: csex_perc <dbl>, breastfeeding_perc <dbl>,
+#> #   ctwin_perc <dbl>, mage_perc <dbl>, mbmi_perc <dbl>,
+#> #   mreligion_perc <dbl>
 #> 
 #> $joint_results$res_sigma
-#> # A tibble: 7 x 8
-#>   var            cage  csex breastfeeding ctwin  mage  mbmi mreligion
-#>   <chr>         <dbl> <dbl>         <dbl> <dbl> <dbl> <dbl>     <dbl>
-#> 1 cage           5012   716           715   717   716   716       716
-#> 2 csex            716  5012           716   716   716   716       716
-#> 3 breastfeeding   715   716          5012   717   716   716       716
-#> 4 ctwin           716   716           716  5012   716   716       716
-#> 5 mage            716   716           716   716  5012   716       716
-#> 6 mbmi            716   716           716   716   716  5012       716
-#> 7 mreligion       716   716           716   716   716   716      5012
+#> # A tibble: 8 x 15
+#>   var       cage  csex breastfeeding ctwin  mage  mbmi mreligion cage_perc
+#> * <fct>    <dbl> <dbl>         <dbl> <dbl> <dbl> <dbl>     <dbl>     <dbl>
+#> 1 cage      5012   716           715   717   716   716       716    0.539 
+#> 2 csex       716  5012           716   716   716   716       716    0.0769
+#> 3 breastf…   715   716          5012   717   716   716       716    0.0769
+#> 4 ctwin      716   716           716  5012   716   716       716    0.0769
+#> 5 mage       716   716           716   716  5012   716       716    0.0769
+#> 6 mbmi       716   716           716   716   716  5012       716    0.0769
+#> 7 mreligi…   716   716           716   716   716   716      5012    0.0769
+#> 8 SUM       9307  9309          9308  9311  9309  9309      9310    1.00  
+#> # ... with 6 more variables: csex_perc <dbl>, breastfeeding_perc <dbl>,
+#> #   ctwin_perc <dbl>, mage_perc <dbl>, mbmi_perc <dbl>,
+#> #   mreligion_perc <dbl>
 #> 
 #> 
 #> attr(,"class")
@@ -186,11 +198,12 @@ results_groups
 #> [1] "r.squared"
 #> 
 #> $joint_results
-#> # A tibble: 2 x 3
-#>   var     child mother
-#>   <chr>   <dbl>  <dbl>
-#> 1 child  0      0.0116
-#> 2 mother 0.0116 0     
+#> # A tibble: 3 x 5
+#>   var     child mother child_perc mother_perc
+#> * <fct>   <dbl>  <dbl>      <dbl>       <dbl>
+#> 1 child  0      0.0116       0           1.00
+#> 2 mother 0.0116 0            1.00        0   
+#> 3 SUM    0.0116 0.0116       1.00        1.00
 #> 
 #> attr(,"class")
 #> [1] "part"
@@ -226,15 +239,15 @@ comparison:
 system.time(hier.part::hier.part(india$stunting, dplyr::select(india, -stunting), gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
-#>   0.331   0.010   0.342
+#>   0.324   0.009   0.338
 system.time(ghp::ghp("stunting", india, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
-#>   0.334   0.003   0.341
+#>   0.353   0.004   0.363
 ```
 
 This README.Rmd was run on:
 
 ``` r
 date()
-#> [1] "Fri Feb 16 18:14:27 2018"
+#> [1] "Thu Feb 22 14:11:03 2018"
 ```

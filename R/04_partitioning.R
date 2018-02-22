@@ -73,11 +73,20 @@ part_core <- function(gofs_vector, expl_names, model_ids) {
   # Make J_allocs pretty
   colnames(J_allocs) <- expl_names
   row.names(J_allocs) <- expl_names
+  J_allocs <- cbind.data.frame(var = expl_names, J_allocs)
+
+  # Put J_alloc_perc to J_alloc (Percentages)
+  J_allocs_perc <- apply(J_allocs[, -1], 2, FUN = function(x) return(x / sum(x))) # -1 because first column is variable names
+  colnames(J_allocs_perc) <- paste0(colnames(J_allocs_perc), "_perc")
+  J_allocs <- cbind(J_allocs, J_allocs_perc)
+
+  # Make the sum and convert to tibble for nice printing
+  J_allocs <-
+    rbind(J_allocs, data.frame(var = "SUM", t(apply(J_allocs[,-1], 2, FUN = sum))))
   J_allocs <- as_tibble(J_allocs)
-  J_allocs <- add_column(J_allocs, var = expl_names, .before = 1)
 
   # Get total effects
-  Tot <- gofs_vector[2:(nvar+1)]
+  Tot <- gofs_vector[2:(nvar + 1)]
 
   # Create and return tibble
   main_res <- tibble(var = expl_names, indep_effects = I,
