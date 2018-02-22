@@ -86,7 +86,7 @@ part_core <- function(gofs_vector, expl_names, model_ids) {
   J_allocs <- as_tibble(J_allocs)
 
   # Get total effects
-  Tot <- gofs_vector[2:(nvar + 1)]
+  Tot <- gofs_vector[2:(nvar+1)] - gofs_vector[1]
 
   # Create and return tibble
   main_res <- tibble(var = expl_names, indep_effects = I,

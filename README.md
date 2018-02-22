@@ -100,20 +100,20 @@ results_gamlss
 #> # A tibble: 14 x 7
 #>    var          param indep_effects joint_effects total_effects indep_perc
 #>    <chr>        <chr>         <dbl>         <dbl>         <dbl>      <dbl>
-#>  1 cage         mu         -13.3             9304          4995   0.269   
-#>  2 csex         mu         - 0.309           9309          5012   0.00628 
-#>  3 breastfeedi… mu         -12.1             9303          4994   0.245   
-#>  4 ctwin        mu         - 0.0396          9309          5012   0.000804
-#>  5 mage         mu         -13.3             9306          4996   0.270   
-#>  6 mbmi         mu         - 8.03            9306          5001   0.163   
-#>  7 mreligion    mu         - 2.23            9309          5010   0.0453  
-#>  8 cage         sigma      - 9.96            9307          5000   0.280   
-#>  9 csex         sigma      - 0.577           9309          5012   0.0162  
-#> 10 breastfeedi… sigma      - 8.73            9308          5003   0.246   
-#> 11 ctwin        sigma      -11.7             9311          5003   0.329   
-#> 12 mage         sigma      - 0.360           9309          5012   0.0101  
-#> 13 mbmi         sigma      - 0.100           9309          5012   0.00282 
-#> 14 mreligion    sigma      - 4.13            9310          5009   0.116   
+#>  1 cage         mu         -13.3         -4.35        -17.6       0.269   
+#>  2 csex         mu         - 0.309        0.0854      - 0.224     0.00628 
+#>  3 breastfeedi… mu         -12.1         -6.14        -18.2       0.245   
+#>  4 ctwin        mu         - 0.0396       0.00969     - 0.0299    0.000804
+#>  5 mage         mu         -13.3         -2.87        -16.2       0.270   
+#>  6 mbmi         mu         - 8.03        -3.05        -11.1       0.163   
+#>  7 mreligion    mu         - 2.23        -0.0941      - 2.32      0.0453  
+#>  8 cage         sigma      - 9.96        -2.14        -12.1       0.280   
+#>  9 csex         sigma      - 0.577        0.0372      - 0.540     0.0162  
+#> 10 breastfeedi… sigma      - 8.73        -1.01        - 9.74      0.246   
+#> 11 ctwin        sigma      -11.7          2.47        - 9.23      0.329   
+#> 12 mage         sigma      - 0.360        0.290       - 0.0696    0.0101  
+#> 13 mbmi         sigma      - 0.100        0.0936      - 0.00681   0.00282 
+#> 14 mreligion    sigma      - 4.13         1.19        - 2.94      0.116   
 #> # ... with 1 more variable: joint_perc <dbl>
 #> 
 #> $npar
@@ -127,6 +127,7 @@ results_gamlss
 #> 
 #> $joint_results
 #> $joint_results$res_mu
+<<<<<<< HEAD
 #> # A tibble: 8 x 15
 #>   var       cage  csex breastfeeding ctwin  mage  mbmi mreligion cage_perc
 #> * <fct>    <dbl> <dbl>         <dbl> <dbl> <dbl> <dbl>     <dbl>     <dbl>
@@ -157,6 +158,30 @@ results_gamlss
 #> # ... with 6 more variables: csex_perc <dbl>, breastfeeding_perc <dbl>,
 #> #   ctwin_perc <dbl>, mage_perc <dbl>, mbmi_perc <dbl>,
 #> #   mreligion_perc <dbl>
+=======
+#> # A tibble: 7 x 8
+#>   var         cage     csex breastfeeding    ctwin   mage   mbmi mreligion
+#>   <chr>      <dbl>    <dbl>         <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+#> 1 cage       0     -0.00400        -1.53  -1.10e⁻³ -0.433 -0.302  -0.0747 
+#> 2 csex      -0.637  0              -0.873  7.02e⁻⁴ -0.420 -0.409  -0.00566
+#> 3 breastfe… -1.27   0.0158          0     -8.18e⁻⁴ -0.429 -0.628  -0.0279 
+#> 4 ctwin     -0.624  0.0115         -0.879  0       -0.413 -0.427  -0.0132 
+#> 5 mage      -0.644  0.00257        -0.896 -9.37e⁻⁴  0     -0.849   0.0430 
+#> 6 mbmi      -0.486  0.0395         -1.07   1.02e⁻² -0.823  0      -0.0156 
+#> 7 mreligion -0.682  0.0200         -0.891  1.60e⁻³ -0.354 -0.438   0      
+#> 
+#> $joint_results$res_sigma
+#> # A tibble: 7 x 8
+#>   var            cage    csex breastfeeding ctwin   mage    mbmi mreligion
+#>   <chr>         <dbl>   <dbl>         <dbl> <dbl>  <dbl>   <dbl>     <dbl>
+#> 1 cage          0     0.00701      -0.588   0.497 0.0424 0.0123      0.162
+#> 2 csex         -0.304 0            -0.145   0.352 0.0388 0.0128      0.178
+#> 3 breastfeedi… -0.750 0.00498       0       0.521 0.0316 0.0163      0.308
+#> 4 ctwin        -0.161 0.00491       0.0243  0     0.0669 0.0284      0.169
+#> 5 mage         -0.305 0.00264      -0.154   0.378 0      0.00911     0.202
+#> 6 mbmi         -0.307 0.00478      -0.141   0.367 0.0372 0           0.171
+#> 7 mreligion    -0.314 0.0129       -0.00579 0.351 0.0732 0.0147      0    
+>>>>>>> refs/remotes/origin/master
 #> 
 #> 
 #> attr(,"class")
@@ -239,15 +264,26 @@ comparison:
 system.time(hier.part::hier.part(india$stunting, dplyr::select(india, -stunting), gof = "Rsqu", barplot = FALSE))
 #> Loading required package: gtools
 #>    user  system elapsed 
+<<<<<<< HEAD
 #>   0.324   0.009   0.338
 system.time(ghp::ghp("stunting", india, method = "lm", gof = "r.squared"))
 #>    user  system elapsed 
 #>   0.353   0.004   0.363
+=======
+#>   0.390   0.005   0.397
+system.time(ghp::ghp("stunting", india, method = "lm", gof = "r.squared"))
+#>    user  system elapsed 
+#>   0.395   0.008   0.407
+>>>>>>> refs/remotes/origin/master
 ```
 
 This README.Rmd was run on:
 
 ``` r
 date()
+<<<<<<< HEAD
 #> [1] "Thu Feb 22 14:11:03 2018"
+=======
+#> [1] "Tue Feb 20 12:44:15 2018"
+>>>>>>> refs/remotes/origin/master
 ```

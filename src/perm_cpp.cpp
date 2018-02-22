@@ -5,7 +5,7 @@
 //' Core partitioning function
 //'
 //' Computes the corresponding difference of a model combination with or without a variable (first one in the permutation). Written in C++.
-//' @param perm All permutations in a matrix
+//' @param perms All permutations in a matrix
 //' @param model_ids A numeric vector with unique model id's
 //' @param gofs_vector A numeric vector with goodness-of-fit numbers
 // [[Rcpp::export]]
@@ -74,7 +74,7 @@ Rcpp::List perm_cpp(Rcpp::NumericMatrix perms,
     Rcpp::NumericVector diffs_joint(psize);
     for (int i = 0; i < psize; ++i) {
       diffs_indep(i) = gofs_vector(pos_lh(i)) - gofs_vector(pos_rh(i));
-      diffs_joint(i) = gofs_vector(perm_num(0)) - diffs_indep(i); // This takes the first part of the permutation, uses it to find the gof with first effect variable and substracts from it the indep contributions
+      diffs_joint(i) = (gofs_vector(perm_num(0)) - gofs_vector(0)) - diffs_indep(i); // This takes the first part of the permutation, uses it to calculate "pure" effect of variable (e.g. R1 - R0)  and substracts from it the indep contributions
     }
     indep_raw(l, Rcpp::_) = diffs_indep;
     joint_raw(l, Rcpp::_) = diffs_joint;
@@ -88,16 +88,14 @@ Rcpp::List perm_cpp(Rcpp::NumericMatrix perms,
   for (int i = 0; i < psize; ++i) {                                           // This iterates over all variables
     for (int j = (i * perms_per_var); j < ((i + 1) * perms_per_var); ++j) {   // This iterates over the specific rownumbers (made with i)
       int second_perm_val = perms(j, 1);                                      // Second number in permutation: important to know which joint contribution is needed
-      // Independent contributions
-      indep_results(i) += indep_raw(j, 0) / nums_to_average;                  // This is taken out of the loop so that we can write the following in one loops. Index 0 is taken out
-      for (int l = 1; l < psize; ++l) {                                       // This iterates over the column in the rows
+      for (int l = 0; l < psize; ++l) {                                       // This iterates over the column in the rows
+        // Independent contributions
         indep_results(i) += indep_raw(j, l) / nums_to_average;                // This computes the average independent contribution
-
         // Joint contributions
         joint_allocs(second_perm_val - 1, i) += joint_raw(j, l) / nums_to_average; // This fills up the joint allocation matrix... we use the minus one so the second entry in the permutation matches up with the index of the matrix...
       }
     }
-    joint_allocs(i, i) = gofs_vector(0);                                      // The diagonal of the joint allocations is always the empty model
+    joint_allocs(i, i) = 0;                                      // The diagonal of the joint allocations is always 0
   }
 
   // --- Calculate RowSums for sum joint contributions

@@ -4,7 +4,7 @@
 #' Core partitioning function
 #'
 #' Computes the corresponding difference of a model combination with or without a variable (first one in the permutation). Written in C++.
-#' @param perm All permutations in a matrix
+#' @param perms All permutations in a matrix
 #' @param model_ids A numeric vector with unique model id's
 #' @param gofs_vector A numeric vector with goodness-of-fit numbers
 perm_cpp <- function(perms, model_ids, gofs_vector) {
