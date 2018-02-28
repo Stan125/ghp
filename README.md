@@ -232,22 +232,24 @@ plot_ghp(results_gamlss)
 ## Comparison with hier.part
 
 Since `0.4.0`, `ghp` is almost as fast as its counterpart `hier.part`,
-because the core partitioning was written with C++. A quick
-comparison:
+because the core partitioning was written with C++. A quick comparison:
 
 ``` r
-system.time(hier.part::hier.part(india$stunting, dplyr::select(india, -stunting), gof = "Rsqu", barplot = FALSE))
-#> Loading required package: gtools
-#>    user  system elapsed 
-#>   0.347   0.014   0.391
-system.time(ghp::ghp("stunting", india, method = "lm", gof = "r.squared"))
-#>    user  system elapsed 
-#>   0.336   0.004   0.344
+hp <- function()
+  hier.part::hier.part(india$stunting, dplyr::select(india,-stunting),
+                       gof = "Rsqu", barplot = FALSE)
+ghp <- function()
+  ghp::ghp("stunting", india, method = "lm", gof = "r.squared")
+microbenchmark::microbenchmark(hp, ghp)
+#> Unit: nanoseconds
+#>  expr min lq  mean median uq max neval
+#>    hp  29 30 35.94     30 31 599   100
+#>   ghp  29 30 39.02     30 31 813   100
 ```
 
 This README.Rmd was run on:
 
 ``` r
 date()
-#> [1] "Wed Feb 28 11:09:46 2018"
+#> [1] "Wed Feb 28 11:20:55 2018"
 ```
