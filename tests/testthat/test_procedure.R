@@ -1,11 +1,11 @@
 ##### This script tests for the correct use of ghp #####
 
 ## Libraries
-library(ghp)
-library(tibble)
-library(gridExtra)
-library(ggplot2)
-library(testthat)
+library("ghp")
+library("tibble")
+library("gridExtra")
+library("ggplot2")
+library("testthat")
 
 ## Remove everything
 rm(list = ls())
@@ -85,7 +85,7 @@ gof_test <- function(mfits) {
     return(gofs)
   } else if (mfits$method == "gamlss") {
     # No errors should be here
-    for (i in c("AIC", "deviance"))
+    for (i in c("AIC", "deviance", "loglik", "R2m"))
       gofs <- gof(mfits, i)
 
     # There should be an error here
