@@ -35,7 +35,7 @@
 ghp <- function(depname, data, gof = "r.squared", method = "lm", npar = 1,
                 group_df = NULL) {
 
-  if (!is.character(depname) | !is.character(gof) | is.character(method))
+  if (!is.character(depname) | !is.character(gof) | !is.character(method))
     stop("Arguments 'depname', 'gof', 'method' need to be in character form")
   if (!is.data.frame(data))
     stop("Argument 'data' needs to be in data.frame form")
