@@ -85,7 +85,7 @@ gof_test <- function(mfits) {
     return(gofs)
   } else if (mfits$method == "gamlss") {
     # No errors should be here
-    for (i in c("AIC", "deviance", "loglik", "R2m"))
+    for (i in c("AIC", "deviance", "loglik", "R2e"))
       gofs <- gof(mfits, i)
 
     # There should be an error here
