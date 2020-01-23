@@ -18,7 +18,7 @@
 #' @param gof Goodness of fit which should be obtained for all models. Which is
 #'   available depends on the method with which the models were computed.
 #'   Currently: \itemize{\item \strong{lm method}: "AIC", "r.squared", "loglik",
-#'   "deviance" \item \strong{gamlss method}: "AIC", "deviance", "loglik"}
+#'   "deviance" \item \strong{gamlss method}: "AIC", "deviance", "loglik", "R2e}
 #' @return A gof object (type list), which has the following elements:
 #'   \enumerate{\item \strong{gofs}: A list with \code{npar} elements, each
 #'   being a vector with the goodness of fits of the models. \item
@@ -72,7 +72,7 @@ gof_lm <- function(mfits, gof) {
 
 gof_gamlss <- function(mfits, gof) {
   # Stop if goodness of fit not implemented
-  available_gofs <- c("AIC", "deviance", "loglik", "R2m")
+  available_gofs <- c("AIC", "deviance", "loglik", "R2e")
   if (!gof %in% available_gofs)
     stop("Goodness of Fit not implemented")
 
@@ -103,7 +103,7 @@ gof_getter <- function(models, gof) {
     gofs <- sapply(models, FUN = function(x) return(logLik(x)))
   if (gof == "deviance")
     gofs <- sapply(models, FUN = function(x) return(deviance(x)))
-  if (gof == "R2m") {
+  if (gof == "R2e") {
     L0 <- logLik(models[[1]])
     n <- models[[1]]$N
     gofs <- sapply(models, FUN = function(x) {
