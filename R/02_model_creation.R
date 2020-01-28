@@ -19,6 +19,7 @@
 #'   should be modeled, or 2 if models for modeling the variance of the
 #'   dependent variable should also be computed. \code{npar = 2} is only
 #'   possible in combination with \code{method = "gamlss"}.
+#' @param ... Additional arguments, passed on to \code{link[gamlss]{gamlss}}.
 #' @export
 #' @return A list with five components: \enumerate{ \item models: A list
 #'   with one or two elements. Each element has all possible model fits in it.
@@ -27,7 +28,7 @@
 #'   element \item expl_names: names of explanatory variables (ungrouped case)
 #'   or group names (grouped case). \item npar: Number of parameters which are
 #'   modeled. \item method: One of "lm", "gamlss". }
-mfit <- function(data, method, npar = 1) {
+mfit <- function(data, method, npar = 1, ...) {
   # Give error when method not supported
   supp_meths <- c("lm", "gamlss")
   if (!method %in% supp_meths)
@@ -40,7 +41,7 @@ mfit <- function(data, method, npar = 1) {
   if (method == "lm")
     models <-  mfit_lm(data, combinations)
   if (method == "gamlss")
-    models <- mfit_gamlss(data, npar, combinations)
+    models <- mfit_gamlss(data, npar, combinations, ...)
 
   # Create model comb names
   model_ids <- apply(combinations, MARGIN = 1, FUN = function(x)
@@ -77,23 +78,26 @@ mfit_lm <- function(data, combinations) {
 #' @importFrom gamlss gamlss
 #' @keywords internal
 
-mfit_gamlss <- function(data, npar, combinations) {
+mfit_gamlss <- function(data, npar, combinations, ...) {
   # Suppress warnings of algo not converging or na.omit applied to NULL
   suppressWarnings({
     # Compute models
     m0 <- list(gamlss(data$dep ~ 1,
-                      data = NULL, trace = FALSE)) # suppress warning that na is applied to NULL
+                      data = NULL, trace = FALSE, ...)) # suppress warning that na is applied to NULL
 
     # Compute mu models
     models_mu <- apply(combinations, MARGIN = 1, FUN = function(x)
       return(gamlss(data$dep ~ .,
-                    data = selector(data$indep, x[x > 0]), trace = FALSE)))
+                    data = selector(data$indep, x[x > 0]),
+                    trace = FALSE,
+                    ...)))
 
     # Compute Sigma models
     if (npar == 2)
       models_sigma <- apply(combinations, MARGIN = 1, FUN = function(x)
         return(gamlss(data$dep ~ 1, sigma.formula = ~ ., trace = FALSE,
-                      data = selector(data$indep, x[x > 0]))))
+                      data = selector(data$indep, x[x > 0]),
+                      ...)))
   })
 
   # Return models

@@ -4,7 +4,7 @@
 \alias{mfit_gamlss}
 \title{Fit all possible model combinations for "gamlss" model class}
 \usage{
-mfit_gamlss(data, npar, combinations)
+mfit_gamlss(data, npar, combinations, ...)
 }
 \description{
 Fit all possible model combinations for "gamlss" model class

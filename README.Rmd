@@ -71,7 +71,8 @@ We can now see that both groups have almost the same amount of influence on the 
 To get a bar plot of the percentage independent effects, use `plot_ghp()`:
 ```{r barplot}
 plot_ghp(results_lm)
-plot_ghp(results_gamlss)
+plot_ghp(results_gamlss) +
+  ggplot2::scale_fill_grey()
 ```
 
 ## Comparison with hier.part

@@ -20,7 +20,7 @@ explanatory variables (ungrouped case) or group names (grouped case). \item
 \item{gof}{Goodness of fit which should be obtained for all models. Which is
 available depends on the method with which the models were computed.
 Currently: \itemize{\item \strong{lm method}: "AIC", "r.squared", "loglik",
-"deviance" \item \strong{gamlss method}: "AIC", "deviance"}}
+"deviance" \item \strong{gamlss method}: "AIC", "deviance", "loglik", "R2e}}
 }
 \value{
 A gof object (type list), which has the following elements:

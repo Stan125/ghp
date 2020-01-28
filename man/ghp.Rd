@@ -4,8 +4,15 @@
 \alias{ghp}
 \title{Hierarchical Partitioning}
 \usage{
-ghp(depname, data, gof = "r.squared", method = "lm", npar = 1,
-  group_df = NULL)
+ghp(
+  depname,
+  data,
+  gof = "r.squared",
+  method = "lm",
+  npar = 1,
+  group_df = NULL,
+  ...
+)
 }
 \arguments{
 \item{depname}{The name of the dependent variable in character form, e.g.
@@ -16,7 +23,7 @@ ghp(depname, data, gof = "r.squared", method = "lm", npar = 1,
 \item{gof}{Goodness of fit which should be obtained for all models. Which is
 available depends on the method with which the models were computed.
 Currently: \itemize{\item \strong{lm method}: "AIC", "r.squared", "loglik",
-"deviance" \item \strong{gamlss method}: "AIC", "deviance"}}
+"deviance" \item \strong{gamlss method}: "AIC", "deviance", "loglik", "R2e}}
 
 \item{method}{The method with which the models shall be computed. Can be one
 of \code{"lm"} (linear models) and \code{"gamlss"}.}
@@ -29,6 +36,8 @@ depicts the explanatory variables in character form. The other one, called
 \code{groups} depicts the group each variable belongs to, with the
 dependent variable being in the group \code{0}. See the examples section
 for an example.}
+
+\item{...}{Additional arguments, passed on to \code{link[gamlss]{gamlss}}.}
 }
 \description{
 Core function of the \code{ghp} package. Gives the ability to fit all

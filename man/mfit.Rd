@@ -4,7 +4,7 @@
 \alias{mfit}
 \title{Model fitter}
 \usage{
-mfit(data, method, npar = 1)
+mfit(data, method, npar = 1, ...)
 }
 \arguments{
 \item{data}{A list with two elements: \enumerate{ \item \strong{dep}: A
@@ -21,6 +21,8 @@ computed. Can be one if only the expected value of the dependent variable
 should be modeled, or 2 if models for modeling the variance of the
 dependent variable should also be computed. \code{npar = 2} is only
 possible in combination with \code{method = "gamlss"}.}
+
+\item{...}{Additional arguments, passed on to \code{link[gamlss]{gamlss}}.}
 }
 \value{
 A list with five components: \enumerate{ \item models: A list
